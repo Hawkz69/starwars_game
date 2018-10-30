@@ -317,8 +317,8 @@ th {
   align-items: center; }
 
 .box_ {
-  width: 320px;
-  height: 350px;
+  width: 80%;
+  height: 70%;
   background: #fff;
   border-radius: 9px;
   box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15); }
