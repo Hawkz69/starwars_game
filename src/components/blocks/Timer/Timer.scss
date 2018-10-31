@@ -1,0 +1,56 @@
+@keyframes AnimationTimer {
+    to {
+        width: 25%; 
+    }
+}
+
+.div_animation_timer {
+    height: 100%;
+    width: 0%;
+    background-color: #f9dfe3;
+    position: absolute;
+    z-index: 1;
+    animation-name: AnimationTimer;
+    animation-duration: 120s;
+}
+
+.label_timer {
+    text-align: center;
+    width: 100%;
+    font-size: 32px;
+    font-family: Marker Felt;
+    z-index: 9;
+
+    @media only screen and (min-device-width : 320px) and (max-device-width : 568px) {
+        font-size: 20px;
+    }
+
+    // Iphone 6 portrait & landscape
+    @media only screen and (min-device-width : 375px) and (max-device-width : 667px) {
+        font-size: 20px;
+    }
+
+    //IPAD 768
+    @media only screen and (min-device-width : 736px) and (max-device-width : 768px) {
+        font-size: 60px;
+    }
+
+    //Ipad PRO
+    @media only screen and (min-device-width : 770px) and (max-device-width : 1024px) {
+        font-size: 60px;
+    }
+
+    // Iphone 6 plus portrait & landscape
+    @media only screen and (min-device-width : 414px) and (max-device-width : 736px) {
+        font-size: 20px;
+    }
+
+    // Galaxy S5 +
+    @media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3){
+        font-size: 20px;
+    }
+}
+
+body {
+    margin: 0px;
+}

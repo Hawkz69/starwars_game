@@ -3,13 +3,9 @@ import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
-import { CardPerson, Timer } from "../../blocks";
-import placeholders from '../../../assets/pallet/variables_'
+import {Animated} from "react-animated-css";
 // Style
-import './Game.css';
-
-
-let timer = null;
+import './CardPerson.css';
 
 const styles = {
     dialogRoot: {
@@ -26,24 +22,20 @@ const styles = {
     dialogBody: {
       paddingBottom: 0
     }
-  };
+};
 
-export default class GameView extends Component {
+export default class CardPerson extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            openModalInstructions: false
+            name: ''
         };
     }
 
     render() {
         const actions = [
             <FlatButton
-                label="Cancelar"
-                onClick={this.handleCloseModalInstructions}
-            />,
-            <FlatButton
-                label="INICIAR"
+                label="OK"
                 secondary={true}
                 keyboardFocused={true}
                 onClick={this.handleClose}
@@ -51,36 +43,17 @@ export default class GameView extends Component {
         ];
 
         return (
-            <div className="content_game">
-                <div id="header" Style="width: 100%;
-                                        height: 10%;
-                                        position: absolute;
-                                        display:flex">
-                    <div id="title" Style="width: 75%;
-                                        height: 100%;
-                                        background-color: white;
-                                        box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
-                                        ">
-                        <img className="img_logo" src={require('../../../assets/img/logo.png')}/>
-
+            <div className="container_card">
+                <Animated animationIn="zoomIn" isVisible={true}>
+                    <div className="box">
+                        <div id="gameStart" className="gameStart">
+                            <RaisedButton onClick={this.handleOpenModalInstructions} label="INICIAR" secondary={true}/>
+                        </div>        
                     </div>
-                    <div id="containerTimer" className="container_timer">
-                        <Timer minutes="2" seconds="00" />
-                    </div>
-                </div>
-                <div id="boxes" className="container_boxes">
-                    <CardPerson />
-                    <CardPerson />
-                    <CardPerson />
-                    <CardPerson />
-                    <CardPerson />
-                    <CardPerson />
-                    <CardPerson />
-                    <CardPerson />
-                </div>
+                </Animated>
                 
                 <Dialog
-                    title="Como jogar"
+                    title="Sobre o personagem"
                     actions={actions}
                     modal={false}
                     open={this.state.openModalInstructions}

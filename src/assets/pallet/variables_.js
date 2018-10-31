@@ -35,7 +35,7 @@ export const iconsMenu = {
 export const placeholders = {
     // placeholderProfile : require('../img/profile-img-large.png'),
     // placeholderCover : require('../img/cover-img-large.png')
-    // logo: require('../img/logo.png'),
+    logo: require('../img/logo.png'),
     // logoBranco: require('../img/logo_branco.png')
 }
 

@@ -14,8 +14,12 @@ class App extends Component {
 
     render() {
         return (
-            <AppView />
+            <AppView redirectGameStart={this.handleRedirectGameStart}/>
         )
+    }
+
+    handleRedirectGameStart = () => {
+        this.props.history.push('/game');
     }
 
 }

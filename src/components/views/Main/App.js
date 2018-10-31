@@ -42,7 +42,7 @@ export default class AppView extends Component {
                 label="INICIAR"
                 secondary={true}
                 keyboardFocused={true}
-                onClick={this.handleClose}
+                onClick={this.redirectGameStart}
             />,
         ];
 
@@ -80,6 +80,9 @@ export default class AppView extends Component {
         );
     }
 
+    redirectGameStart = () => {
+       this.props.redirectGameStart();
+    };
 
     handleOpenModalInstructions = () => {
         this.setState({openModalInstructions: true});

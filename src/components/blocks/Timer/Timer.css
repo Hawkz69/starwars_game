@@ -1,0 +1,40 @@
+@keyframes AnimationTimer {
+  to {
+    width: 25%; } }
+
+.div_animation_timer {
+  height: 100%;
+  width: 0%;
+  background-color: #f9dfe3;
+  position: absolute;
+  z-index: 1;
+  animation-name: AnimationTimer;
+  animation-duration: 120s; }
+
+.label_timer {
+  text-align: center;
+  width: 100%;
+  font-size: 32px;
+  font-family: Marker Felt;
+  z-index: 9; }
+  @media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+    .label_timer {
+      font-size: 20px; } }
+  @media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+    .label_timer {
+      font-size: 20px; } }
+  @media only screen and (min-device-width: 736px) and (max-device-width: 768px) {
+    .label_timer {
+      font-size: 60px; } }
+  @media only screen and (min-device-width: 770px) and (max-device-width: 1024px) {
+    .label_timer {
+      font-size: 60px; } }
+  @media only screen and (min-device-width: 414px) and (max-device-width: 736px) {
+    .label_timer {
+      font-size: 20px; } }
+  @media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
+    .label_timer {
+      font-size: 20px; } }
+
+body {
+  margin: 0px; }

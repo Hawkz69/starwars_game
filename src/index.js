@@ -9,7 +9,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // Router
 import {BrowserRouter as Router, Route, Switch, browserHistory} from 'react-router-dom';
 // Views
-import { App } from './containers';
+import { App, Game } from './containers';
 //Components
 import configureStore from './redux/store';
 import WebFont from 'webfontloader';
@@ -23,7 +23,7 @@ const store = configureStore(initialState, history);
 
 WebFont.load({
     google: {
-        families: ['Muli', 'sans-serif']
+        families: ['Marker Felt', 'sans-serif']
     }
 });
 
@@ -38,6 +38,7 @@ ReactDOM.render(
                 <MuiThemeProvider>
                     <Switch>
                         <Route exact path="/" component={App}/>
+                        <Route exact path="/game" component={Game}/>
                     </Switch>
                 </MuiThemeProvider>
             </div>

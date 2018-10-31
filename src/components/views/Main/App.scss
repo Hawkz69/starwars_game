@@ -13,7 +13,9 @@
 .box_ {
     width: 80%;
     height: 75%;
-    background: #fff;
+    background: url('../../../assets/img/bg_star_home.jpg') no-repeat;
+    background-position-x: center;
+    background-position-y: center;
     border-radius: 9px;
     box-shadow: 0 0 0 1px rgba(63,63,68,0.05), 0 1px 3px 0 rgba(63,63,68,0.15);
 }
