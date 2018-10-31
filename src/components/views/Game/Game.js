@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 
 // Style
-import './App.css';
+import './Game.css';
 
 const styles = {
     dialogRoot: {
@@ -24,7 +24,7 @@ const styles = {
     }
   };
 
-export default class AppView extends Component {
+export default class GameView extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -49,8 +49,6 @@ export default class AppView extends Component {
         return (
             <div className="container_app">
                 <div className="box_">
-                    <img src={require('../../../assets/img/nave_leah.png')} className="leah"/>
-                    <img src={require('../../../assets/img/img_home.png')} className="img_home"/>
                     <div id="gameStart" className="gameStart">
                         <RaisedButton onClick={this.handleOpenModalInstructions} label="INICIAR" secondary={true}/>
                     </div>        

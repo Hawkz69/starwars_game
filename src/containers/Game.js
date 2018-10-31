@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 
 import { authActions } from '../redux/context/game';
-import { AppView } from '../components/views';
+import { GameView } from '../components/views';
 
 
-class App extends Component {
+class Game extends Component {
     constructor(props) {
         super(props);
         // this.props.history.push('/home');
@@ -14,7 +14,7 @@ class App extends Component {
 
     render() {
         return (
-            <AppView />
+            <GameView />
         )
     }
 
@@ -28,4 +28,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({ dispatch });
 export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps,
-)(App));
+)(Game));
