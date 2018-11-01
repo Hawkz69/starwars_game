@@ -1,7 +1,7 @@
 .box {
   float: left;
   width: 20%;
-  height: 200px;
+  height: 260px;
   background-color: white;
   margin-top: 5%;
   margin-left: 3%;
@@ -11,7 +11,7 @@
   @media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
     .box {
       width: 70%;
-      height: 220px;
+      height: 200px;
       margin-top: 10%;
       margin-left: 15%; } }
   @media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
@@ -44,6 +44,35 @@
       height: 220px;
       margin-top: 10%;
       margin-left: 15%; } }
+
+.person {
+  border: 0;
+  margin: 5% 0% 0% 15%;
+  width: 65%; }
+  @media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+    .person {
+      margin: 5% 0% 0% 32%;
+      width: 35%; } }
+  @media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+    .person {
+      margin: 5% 0% 0% 32%;
+      width: 35%; } }
+  @media only screen and (min-device-width: 414px) and (max-device-width: 736px) {
+    .person {
+      margin: 5% 0% 0% 32%;
+      width: 35%; } }
+  @media only screen and (min-device-width: 736px) and (max-device-width: 768px) {
+    .person {
+      margin: 5% 0% 0% 32%;
+      width: 35%; } }
+  @media only screen and (min-device-width: 770px) and (max-device-width: 1024px) {
+    .person {
+      margin: 5% 0% 0% 32%;
+      width: 35%; } }
+  @media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
+    .person {
+      margin: 5% 0% 0% 32%;
+      width: 35%; } }
 
 .gameStart {
   margin-top: 40px;

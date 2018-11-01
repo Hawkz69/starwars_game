@@ -23,7 +23,8 @@ export default class Timer extends Component {
         return (
             <div id="timer" Style="width: 100%;
             height: 100%;display: flex;
-            align-items: center">
+            align-items: center;
+            background-color: white">
                 <div id="animationTimer" className="div_animation_timer"/>
                 <h4 className="label_timer">{this.state.minutes}:{this.state.seconds}</h4>
             </div>

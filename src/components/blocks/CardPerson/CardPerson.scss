@@ -1,7 +1,7 @@
 .box {
     float: left;
     width: 20%;
-    height: 200px;
+    height: 260px;
     background-color: white;
     margin-top: 5%;
     margin-left: 3%;
@@ -12,7 +12,7 @@
     // iPhone 5 & 5S in portrait & landscape
     @media only screen and (min-device-width : 320px) and (max-device-width : 568px) {
         width: 70%;
-        height: 220px;
+        height: 200px;
         margin-top: 10%;
         margin-left: 15%;
     }
@@ -56,6 +56,49 @@
         margin-top: 10%;
         margin-left: 15%;
     }
+}
+
+.person {
+    border: 0;
+    margin: 5% 0% 0% 15%;
+    width: 65%;
+
+    // iPhone 5 & 5S in portrait & landscape
+    @media only screen and (min-device-width : 320px) and (max-device-width : 568px) {
+        margin: 5% 0% 0% 32%;
+        width: 35%;
+    }
+
+    // Iphone 6 portrait & landscape
+    @media only screen and (min-device-width : 375px) and (max-device-width : 667px) {
+        margin: 5% 0% 0% 32%;
+        width: 35%;
+    }
+
+    // Iphone 6 plus portrait & landscape
+    @media only screen and (min-device-width : 414px) and (max-device-width : 736px) {
+        margin: 5% 0% 0% 32%;
+        width: 35%;
+    }
+
+    //IPAD 768
+    @media only screen and (min-device-width : 736px) and (max-device-width : 768px) {
+        margin: 5% 0% 0% 32%;
+        width: 35%;
+    }
+
+    //Ipad PRO
+    @media only screen and (min-device-width : 770px) and (max-device-width : 1024px) {
+        margin: 5% 0% 0% 32%;
+        width: 35%;
+    }
+
+    // Galaxy S5 +
+    @media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3){
+        margin: 5% 0% 0% 32%;
+        width: 35%;
+    }
+
 }
 
 .gameStart {

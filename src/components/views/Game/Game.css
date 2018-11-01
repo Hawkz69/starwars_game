@@ -309,7 +309,7 @@ th {
 
 .content_game {
   width: 100%;
-  height: 100%;
+  height: auto;
   background: #fafafa;
   position: absolute; }
 
@@ -350,7 +350,8 @@ th {
       width: 60%; } }
 
 .container_boxes {
-  padding-top: 7%; }
+  padding-top: 7%;
+  overflow: auto; }
   @media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
     .container_boxes {
       padding-top: 15%; } }

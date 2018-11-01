@@ -54,14 +54,16 @@ export default class GameView extends Component {
             <div className="content_game">
                 <div id="header" Style="width: 100%;
                                         height: 10%;
-                                        position: absolute;
-                                        display:flex">
+                                        position: fixed;
+                                        display:flex;
+                                        z-index:9">
+
                     <div id="title" Style="width: 75%;
                                         height: 100%;
                                         background-color: white;
                                         box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
                                         ">
-                        <img className="img_logo" src={require('../../../assets/img/logo.png')}/>
+                        <img className="img_logo" src={require('../../../assets/img/logo.png')} />
 
                     </div>
                     <div id="containerTimer" className="container_timer">
@@ -78,6 +80,17 @@ export default class GameView extends Component {
                     <CardPerson />
                     <CardPerson />
                 </div>
+
+                <div id="pagination" Style="width: 100%;
+                                            display: flex;
+                                            height: 100px;
+                                            align-items: center;
+                                            text-align: center;
+                                            justify-content: center;">
+                    <h4 Style="margin: 20px">Anterior</h4>
+                    <h4 Style="margin: 20px">Próxima</h4>
+                </div>
+
                 
                 <Dialog
                     title="Como jogar"
