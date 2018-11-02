@@ -57,13 +57,13 @@ export default class Timer extends Component {
 
         const actions = [
             <FlatButton
-                label="JOGAR"
+                label="START"
                 secondary={true}
                 keyboardFocused={true}
                 onClick={this.restartGame}
             />,
             <FlatButton
-                label="Sair"
+                label="Exit"
                 onClick={this.exitGame}
             />,
         ];
@@ -74,7 +74,7 @@ export default class Timer extends Component {
                 <h4 className="label_timer">{this.state.minutes}:{this.state.seconds}</h4>
 
                 <Dialog
-                    title={'Acabou o tempo :('}
+                    title={'Times up :('}
                     actions={actions}
                     modal={true}
                     open={this.state.openModalEnd}
@@ -86,12 +86,12 @@ export default class Timer extends Component {
                     style={ stylesModal.dialogRoot }
                 >
                     <div id="contentModal" Style="text-align: center;">
-                        <p className="title_points_total">Você fez {localStorage.getItem('points')} pontos!</p>
+                        <p className="title_points_total">You made {localStorage.getItem('points')} points!</p>
 
-                        <p>Digite seu nome e email e entre para o nosso ranking:</p>
+                        <p>Enter your name and email and enter our ranking:</p>
                         <div id="inputsSendEmail" className="inputs_send_email_container">
                             <TextField
-                                    hintText="Nome"
+                                    hintText="Name"
                                     id="name"
                                     onBlur={() => this.validFields(name, email)}
                                     underlineFocusStyle={{borderColor: Colors.secondary}}
@@ -116,7 +116,7 @@ export default class Timer extends Component {
                                         width: '80%',
                                     }}
                                 />
-                                <RaisedButton disabled={isDesabled} onClick={this.sendRanking} style={{marginTop: 10, marginBottom: 30}}label="Enviar" secondary={true}/>
+                                <RaisedButton disabled={isDesabled} onClick={this.sendRanking} style={{marginTop: 10, marginBottom: 30}}label="SEND" secondary={true}/>
                         </div>
                     </div>
                 </Dialog>
@@ -154,11 +154,11 @@ export default class Timer extends Component {
         let erros = false;
     
         if(email === ''){
-            this.setState({ errorEmail: 'Campo Email é obrigatório' })
+            this.setState({ errorEmail: 'Is required' })
             erros = true;
         } else {
             if(!this.validEmail(email)){
-                this.setState({ errorEmail: 'Email inválido' })
+                this.setState({ errorEmail: 'Is invalid' })
                 erros = true;
             } else {
                 this.setState({ errorEmail: '' })
@@ -166,7 +166,7 @@ export default class Timer extends Component {
         } 
 
         if(name === ''){
-            this.setState({ errorName: 'Campo Nome é obrigatório' }) 
+            this.setState({ errorName: 'Is required' }) 
             erros = true;
         } else {
             this.setState({ errorName: '' }) 
@@ -194,7 +194,7 @@ export default class Timer extends Component {
             this.setState({
                 isDesabled: true,
                 openToast: true,
-                msg: 'Adicionado com sucesso!',
+                msg: 'Success!',
                 timerToast: 3000
             })
         }

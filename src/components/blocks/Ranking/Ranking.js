@@ -22,7 +22,7 @@ export default class Ranking extends Component {
             )
         return (
             <div>
-                <h3>Nossos feras em Star Wars :D</h3>
+                <h3>The beasts in Star Wars :D</h3>
                 <List>
                     {
                         this.props.ranking.map((gamer) => {
