@@ -138,7 +138,8 @@ export default class Timer extends Component {
         this.props.restartGame(true);
         this.setState({
             classNameAnimation: 'div_animation_timer',
-            openToast: false
+            openToast: false,
+            isDesabled: false
         })
     }
 

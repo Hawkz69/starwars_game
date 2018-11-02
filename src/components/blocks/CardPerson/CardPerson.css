@@ -12,7 +12,7 @@
     .box {
       width: 70%;
       height: 255px;
-      margin-top: 10%;
+      margin-top: 12%;
       margin-left: 15%; } }
   @media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
     .box {
@@ -36,7 +36,7 @@
     .box {
       width: 25%;
       height: 290px;
-      margin-top: 2%;
+      margin-top: 5%;
       margin-left: 5%; } }
   @media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
     .box {
