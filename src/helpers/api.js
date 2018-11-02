@@ -1,40 +1,8 @@
-import jQuery from 'jquery';
 import axios from 'axios';
-import moment from 'moment';
-import { get as _get } from 'lodash';
 import Log from './Log';
 import urlApi from '../config/api';
 import { stringifyData, stringifyError } from './helpers';
 
-function makeUrl(path) {
-  return path;
-}
-
-export function getSync(path, params = {}) {
-  Log.debug('API: SYNC GET from ' + path);
-  return true;
-  jQuery.ajax({
-    async: false,
-    type: 'GET',
-    url: path,
-    dataType: 'json',
-    cache: false,
-    success: (response) => {
-      // success callback
-      if (params.success) {
-        params.success(response.data);
-      }
-    },
-    error: (xhr, status, err) => {
-      Log.error('Something went wrong with the GET call to ' + path + ' : ' + status + ' / ' + err);
-
-      // error callback?
-      if (params.error) {
-        params.error(xhr, status, err);
-      }
-    },
-  });
-}
 
 export function get(path, params = {}) {
   Log.debug('API: GET from', path, 'params:', stringifyData(params.query || ''));
@@ -156,7 +124,6 @@ export function patch(path, params = {}) {
 
 export default {
   get,
-  getSync,
   post,
   destroy,
   put,

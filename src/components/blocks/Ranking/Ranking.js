@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 // Material-UI
 import {List, ListItem} from 'material-ui/List';
 
@@ -18,7 +17,7 @@ export default class Ranking extends Component {
         if(this.props.ranking == null)
             return (
                 <div>
-                    <h2>Ninguém jogo ainda :(</h2>
+                    <h2>No Ranking :(</h2>
                 </div> 
             )
         return (

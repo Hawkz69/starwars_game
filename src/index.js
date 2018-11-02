@@ -1,13 +1,12 @@
 // React
 import React from 'react';
-import { Redirect } from 'react-router';
 import ReactDOM from 'react-dom';
 import { Provider } from "react-redux";
 // Style
 import './index.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // Router
-import {BrowserRouter as Router, Route, Switch, browserHistory} from 'react-router-dom';
+import { Route, Switch} from 'react-router-dom';
 // Views
 import { App, Game } from './containers';
 //Components

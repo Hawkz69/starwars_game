@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 // Material-UI
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
@@ -142,27 +141,27 @@ export default class CardPerson extends Component {
                     style={ stylesModal.dialogRoot }
                 >
                     <div id="contentModal">
-                        {this.props.person.birth_year != 'unknown' ? (
+                        {this.props.person.birth_year !== 'unknown' ? (
                             <p>Birth Year: {this.props.person.birth_year}</p>
                         ) : null}
                     
-                        {this.props.person.eye_color != 'unknown' ? (
+                        {this.props.person.eye_color !== 'unknown' ? (
                             <p>Eye Color: {this.props.person.eye_color}</p>
                         ) : null}
 
-                        {this.props.person.gender != 'unknown' ? (
+                        {this.props.person.gender !== 'unknown' ? (
                             <p>Gender: {this.props.person.gender}</p>
                         ) : null}
 
-                        {this.props.person.hair_color != 'unknown' ? (
+                        {this.props.person.hair_color !== 'unknown' ? (
                             <p>Hair Color: {this.props.person.hair_color}</p>
                         ) : null}
 
-                        {this.props.person.height != 'unknown' ? (
+                        {this.props.person.height !== 'unknown' ? (
                             <p>Height: {this.props.person.height}</p>
                         ) : null}
 
-                        {this.props.person.mass != 'unknown' ? (
+                        {this.props.person.mass !== 'unknown' ? (
                             <p>Mass: {this.props.person.mass}</p>
                         ) : null}
 
@@ -185,8 +184,8 @@ export default class CardPerson extends Component {
         let results = [];
 
         films.forEach (function (item) {
-            let reply = filmsApi.find(function (film) { return film.url == item });   
-                if(reply != undefined){
+            let reply = filmsApi.find(function (film) { return film.url === item });   
+                if(reply !== undefined){
                     results.push(reply.title)
                 }
         });
@@ -202,7 +201,7 @@ export default class CardPerson extends Component {
         if(temp !== null){
             temp = JSON.parse(temp);
             let reply = temp.find(function (reply) { return reply.originalName === nameApi; });
-            if(reply != undefined){
+            if(reply !== undefined){
                 this.setState({
                     name: reply.replyName,
                     isShowInput: 'flex',
@@ -252,7 +251,7 @@ export default class CardPerson extends Component {
         })
         const _name = name.toString().toUpperCase();
         const _nameApi = nameApi.toString().toUpperCase();
-        if(_name == _nameApi){
+        if(_name === _nameApi){
             if(this.state.pointuationCard == 5){
                 this.incrementPoint(5);
             } else {

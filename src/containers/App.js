@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 
-import { gameActions } from '../redux/context/game';
 import { filmsActions } from '../redux/context/films';
 import { AppView } from '../components/views';
-
-let page = 1;
 
 class App extends Component {
     constructor(props) {
@@ -19,8 +16,8 @@ class App extends Component {
 
     componentWillReceiveProps = (nextProps) => {
         if(nextProps.films !== undefined){
-            if(nextProps.films.data != undefined){
-                if(nextProps.films.data.data != undefined){
+            if(nextProps.films.data !== undefined){
+                if(nextProps.films.data.data !== undefined){
                     this.setState({films: nextProps.films.data.data.results})
                 }
             }

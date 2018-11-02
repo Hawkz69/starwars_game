@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 // Material-UI
 import FlatButton from 'material-ui/FlatButton';
 import Spinner from 'react-spinkit';
-import { CardPerson, Timer, Toast } from "../../blocks";
+import { CardPerson, Timer } from "../../blocks";
 // Style
 import './Game.css';
 
@@ -41,18 +40,6 @@ export default class GameView extends Component {
 
     render() {
         const { seconds, minutes, startTime } = this.state;
-        const actions = [
-            <FlatButton
-                label="Cancelar"
-                onClick={this.handleCloseModalInstructions}
-            />,
-            <FlatButton
-                label="INICIAR"
-                secondary={true}
-                keyboardFocused={true}
-                onClick={this.handleClose}
-            />,
-        ];
 
         return (
             <div className="content_game">

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 
 import { gameActions } from '../redux/context/game';
-import { filmsActions } from '../redux/context/films';
 import { GameView } from '../components/views';
 
 let persons = [];
@@ -54,7 +53,7 @@ class Game extends Component {
                         if(nextProps.game !== undefined) {
                             if(nextProps.game.data !== undefined) {
                                 if(nextProps.game.data.data.next !== null){
-                                    if(page == 1){
+                                    if(page === 1){
                                         page++
                                         dispatch(gameActions.getPersons(page))
                                         persons.push(nextProps.game.data.persons) 
