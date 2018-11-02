@@ -1,4 +1,3 @@
-<meta http-equiv="refresh" content=1;url="/build">
 Projeto demonstração de um jogo com React + Redux + MaterialUI + Axios
 
 ### `git clone`
