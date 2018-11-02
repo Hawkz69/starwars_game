@@ -49,13 +49,18 @@ export default class CardPerson extends Component {
             isDisableInput: false,
             colorBtnOk: 'green',
             pointuationCard: 0,
-            titleModal: ''
+            titleModal: '',
+            filmsApi: [],
+            films: []
         };
     }
 
     componentDidMount = () => {
         if(this.props !== {}) {
-            this.setState({nameApi: this.props.person.name})
+            this.setState({
+                nameApi: this.props.person.name,
+                filmsApi: this.props.filmsApi
+            })
             this.getReplyStorage(this.props.person.name);
         }
          
@@ -181,17 +186,35 @@ export default class CardPerson extends Component {
                             <p>Mass: {this.props.person.mass}</p>
                         ) : null}
 
+
+                        <p> Films: { this.state.films }</p>
+
                     </div>
                 </Dialog>
             </div>
         );
     }
 
-    showInput = () =>{
+    getMoreInformationPerson = (films: Array) => {
+        const { filmsApi } = this.state;
+        let results = [];
+        // let reply = '';
+        for (let i = 0; i < films.length; i++){
+            let _film = films[i];
+            let reply = filmsApi.find(function (film) { return filmsApi.url == film[i] });
+            console.log(reply)
+            if(reply != undefined){
+                results.push(reply.title)
+            }
+        }
+        this.setState({films: results})      
+    }
+
+    showInput = () => {
         this.setState({isShowInput: 'flex'})
     }
 
-    getReplyStorage = (nameApi) => {
+    getReplyStorage = (nameApi: String) => {
         let temp = localStorage.getItem('replys');
         if(temp !== null){
             temp = JSON.parse(temp);
@@ -207,7 +230,7 @@ export default class CardPerson extends Component {
         }
     }
 
-    incrementPoint = (value) => {
+    incrementPoint = (value: String) => {
         let actualPoints = parseInt(localStorage.getItem('points'));
         if(actualPoints == null){
             localStorage.setItem('points', value);
@@ -253,11 +276,12 @@ export default class CardPerson extends Component {
         this.saveReply();
     }
 
-    onChange = (event) => {
+    onChange = (event: Any) => {
         this.setState({[event.target.id] : event.target.value})  
     }
 
     handleOpenModalPersonDescription = () => {
+        this.getMoreInformationPerson(this.props.person.films);
         this.setState({openModalPersonDescription: true, pointuationCard: 5, titleModal: 'Sobre o personagem'});
     };
     

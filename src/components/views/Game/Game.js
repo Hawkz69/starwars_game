@@ -18,10 +18,11 @@ export default class GameView extends Component {
                 '0': [],
             },
             page: 0,
-            seconds: 5,
-            minutes: 0,
+            seconds: 0,
+            minutes: 2,
             startTime: false,
             restart: false,
+            films: [],
         };
         localStorage.setItem('points', 0);
         localStorage.removeItem('replys');
@@ -32,6 +33,10 @@ export default class GameView extends Component {
     }
 
     componentWillReceiveProps = (nextProps) => {
+        console.log(nextProps)
+        if(nextProps.films.data.data !== undefined){
+            this.setState({films: nextProps.films.data.data.results})
+        }
         if(nextProps.persons !== undefined && nextProps.persons.length > 0){
             this.setState({persons: nextProps.persons})
         }
@@ -72,7 +77,12 @@ export default class GameView extends Component {
                 {
                     this.state.persons[this.state.page].map((item) => {
                         return (
-                            <CardPerson key={item.name} person={item} restart={this.state.restart}/>
+                            <CardPerson 
+                                key={item.name} 
+                                person={item} 
+                                restart={this.state.restart}
+                                filmsApi={this.state.films}
+                            />
                         )
                     })
                 }

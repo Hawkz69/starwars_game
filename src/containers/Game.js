@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 
 import { gameActions } from '../redux/context/game';
+import { filmsActions } from '../redux/context/films';
 import { GameView } from '../components/views';
 
 let persons = [];
@@ -16,6 +17,8 @@ class Game extends Component {
         }
         // this.props.history.push('/home');
     }
+
+
 
     componentDidMount = () => {
         const { dispatch } = this.props;
@@ -31,8 +34,7 @@ class Game extends Component {
                         this.setState({persons}) 
                     } 
                 } 
-            }
-            
+            }    
         }
     }
 
@@ -78,18 +80,23 @@ class Game extends Component {
 
     render() {
         return (
-            <GameView persons={this.state.persons} onExitGame={this.handleExitGame}/>
+            <GameView 
+                persons={this.state.persons}
+                onExitGame={this.handleExitGame}
+                films={this.props.films}
+            />
         )
     }
 
-    handleExitGame = (exit: Bollean) => {
+    handleExitGame = (exit: Boollean) => {
         if(exit)
-        this.props.history.push('/');   
+            this.props.history.push('/');   
     }
 
 }
 const mapStateToProps = (state) => ({
     game: state.context.game,
+    films: state.context.films
 });
   
 const mapDispatchToProps = (dispatch: Dispatch) => ({ dispatch });

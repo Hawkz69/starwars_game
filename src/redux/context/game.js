@@ -1,7 +1,4 @@
-import urlApi from '../../config/api';
 import Api from '../../helpers/api'; 
-import history from '../../history';
-import { push } from 'react-router-redux'
 // ------------------------------------
 // Constants
 // ------------------------------------
