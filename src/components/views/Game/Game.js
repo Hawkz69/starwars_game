@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 // Material-UI
 import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
 import Spinner from 'react-spinkit';
-import { stylesModal } from '../../../assets/pallet/variables_';
 import { CardPerson, Timer, Toast } from "../../blocks";
 // Style
 import './Game.css';
@@ -33,7 +31,6 @@ export default class GameView extends Component {
     }
 
     componentWillReceiveProps = (nextProps) => {
-        console.log(nextProps)
         if(nextProps.films.data.data !== undefined){
             this.setState({films: nextProps.films.data.data.results})
         }
@@ -96,7 +93,7 @@ export default class GameView extends Component {
                     <div id="pagination" className="div_pagination">
                         {this.state.page > 0 && (
                             <FlatButton
-                                label="< Anterior"
+                                label="< Previous"
                                 Style="margin: 20px"
                                 onClick={() => this.setState({page: this.state.page - 1, starTime: false})}
                                 secondary={true}
@@ -105,7 +102,7 @@ export default class GameView extends Component {
                     
                         {this.state.persons[this.state.page].length >= 10 && (
                             <FlatButton
-                                label="Próxima >"
+                                label="Next >"
                                 Style="margin: 20px"
                                 onClick={() => this.setState({page: this.state.page + 1, starTime: false})}
                                 secondary={true}
@@ -113,27 +110,6 @@ export default class GameView extends Component {
                         )}
                     </div>
                 )}          
-                <Dialog
-                    title="Como jogar"
-                    actions={actions}
-                    modal={false}
-                    open={this.state.openModalInstructions}
-                    onRequestClose={this.handleCloseModalInstructions}
-                    autoScrollBodyContent={true}
-                    repositionOnUpdate={ false }
-                    contentStyle={ stylesModal.dialogContent }
-                    bodyStyle={ stylesModal.dialogBody }
-                    style={ stylesModal.dialogRoot }
-                >
-                    <div id="contentModal">
-                        <p>Com esse quiz você terá oportunidade de identificar os principais personagens de Star-
-                        wars, marcar pontos e se tornar um expert nesta série de filmes maravilhosa!</p>
-
-                        <p>Você terá 2 minutos para digitar os nomes dos personagens, exebidos no card, como na imagem abaixo:</p>
-                        <img className="img_tutorial" src={require('../../../assets/img/tutorial.png')}/>
-                        <p Style="font-weight: bold;text-align: center;">QUE A FORÇA ESTEJA COM VOCÊ!</p>
-                    </div>
-                </Dialog>
             </div>
         );
     }

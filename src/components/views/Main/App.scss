@@ -133,6 +133,13 @@
     animation-play-state: running;
 }
 
+.label_ranking {
+    margin: 15px;
+    font-family: $fontPrimary;
+    cursor: pointer; 
+    font-size: 24px;
+}
+
 .gameStart {
     margin-top: 3%;
     align-items: center;

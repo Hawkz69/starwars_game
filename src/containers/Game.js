@@ -40,10 +40,17 @@ class Game extends Component {
 
     componentWillReceiveProps = (nextProps) => {
         const { dispatch } = this.props;
+        /* Inicio de bloco para verificar se já foram carregadas os
+            personagens pno redux para não carregar novament */ 
         if(this.props.game !== undefined){
             if(this.props.game.data !== undefined){
                 if(this.props.game.data.data !== undefined){
                     if(this.props.game.data.data.next !== null){
+                        /* fim bloco  */ 
+
+                        /* Inicio de bloco para verificar se chegou novas informações
+                            se chegou ele da o dispatch novamente
+                            até que o next seja null (passou por todas pages) */ 
                         if(nextProps.game !== undefined) {
                             if(nextProps.game.data !== undefined) {
                                 if(nextProps.game.data.data.next !== null){

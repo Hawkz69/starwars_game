@@ -20,7 +20,6 @@ export const getPersons = (page: String) => (
             header: {'Accept': 'application/json', 'Content-Type': 'application/json'}
         } , true).then
             (res => {
-                console.log(res);
                 if(res.status === 200){
                     dispatch({
                         type: GET_PERSONS_SUCCESS,
@@ -30,6 +29,7 @@ export const getPersons = (page: String) => (
                 }
             })
         .catch(error => {
+            alert("Opa! Algo inesperado aconteceu!")
             dispatch({
                 type: GET_PERSONS_FAILED,
                 error: error,
@@ -39,7 +39,8 @@ export const getPersons = (page: String) => (
     }
 );
 
-export const savePersons = (persons: String) => (
+/* Coloca no state do redux as informações organizadas (sem paginacao)*/ 
+export const savePersons = (persons: Object) => (
     (dispatch: Dispatch) => {
         dispatch({
             type: SAVE_PERSONS_SUCCESS,

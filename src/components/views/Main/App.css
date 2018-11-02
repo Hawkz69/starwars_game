@@ -99,6 +99,12 @@
       width: 26%;
       left: 60%; } }
 
+.label_ranking {
+  margin: 15px;
+  font-family: "Marker Felt";
+  cursor: pointer;
+  font-size: 24px; }
+
 .gameStart {
   margin-top: 3%;
   align-items: center;

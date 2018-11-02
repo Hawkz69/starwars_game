@@ -2,30 +2,14 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 // Material-UI
 import RaisedButton from 'material-ui/RaisedButton';
-import {List, ListItem} from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
-import { Ranking } from '../../blocks'
+
+import { Ranking } from '../../blocks';
+import { stylesModal } from '../../../assets/pallet/variables_';
 
 // Style
 import './App.css';
-
-const styles = {
-    dialogRoot: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      paddingTop: 0
-    },
-    dialogContent: {
-      position: "relative",
-      width: "70vw",
-      transform: "",
-    },
-    dialogBody: {
-      paddingBottom: 0
-    }
-  };
 
 export default class AppView extends Component {
     constructor(props) {
@@ -39,13 +23,19 @@ export default class AppView extends Component {
     }
 
     render() {
+        const {
+            titleModal,
+            labelAction,
+            rankingList
+        } = this.state;
+
         let actions = [
             <FlatButton
-                label="Cancelar"
+                label="Cancel"
                 onClick={this.handleCloseModalInstructions}
             />,
             <FlatButton
-                label={this.state.labelAction}
+                label={labelAction}
                 secondary={true}
                 keyboardFocused={true}
                 onClick={this.redirectModal}
@@ -55,37 +45,37 @@ export default class AppView extends Component {
         return (
             <div className="container_app">
                 <div className="box_">
-                    <div><p onClick={this.renderRanking} Style="margin: 15px; font-family: Marker Felt; cursor: pointer; font-size: 24px;">Ranking</p></div>
+                    <div><p onClick={this.renderRanking} className="label_ranking">Ranking</p></div>
                     <img src={require('../../../assets/img/nave_leah.png')} className="leah"/>
                     <img src={require('../../../assets/img/img_home.png')} className="img_home"/>
                     <div id="gameStart" className="gameStart">
-                        <RaisedButton onClick={this.handleOpenModalInstructions} label="INICIAR" secondary={true}/>
+                        <RaisedButton onClick={this.handleOpenModalInstructions} label="START" secondary={true}/>
                     </div>        
                 </div>
                 <Dialog
-                    title={this.state.titleModal}
+                    title={titleModal}
                     actions={actions}
                     modal={false}
                     open={this.state.openModalInstructions}
                     onRequestClose={this.handleCloseModalInstructions}
                     autoScrollBodyContent={true}
                     repositionOnUpdate={ false }
-                    contentStyle={ styles.dialogContent }
-                    bodyStyle={ styles.dialogBody }
-                    style={ styles.dialogRoot }
+                    contentStyle={ stylesModal.dialogContent }
+                    bodyStyle={ stylesModal.dialogBody }
+                    style={ stylesModal.dialogRoot }
                 >
                 {!this.state.ranking ? (
                     <div id="contentModal">
-                        <p>Com esse quiz você terá oportunidade de identificar os principais personagens de Star-
-                        wars, marcar pontos e se tornar um expert nesta série de filmes maravilhosa!</p>
+                        <p>With this quiz you will have the opportunity to identify the main characters of Star-
+                        wars, score points and become an expert in this wonderful film series!</p>
 
-                        <p>Você terá 2 minutos para digitar os nomes dos personagens, exebidos no card, como na imagem abaixo:</p>
+                        <p>You will have 2 minutes to enter the names of the characters, shown on the card, as in the image below:</p>
                         <img className="img_tutorial" src={require('../../../assets/img/tutorial.png')}/>
-                        <p Style="font-weight: bold;text-align: center;">QUE A FORÇA ESTEJA COM VOCÊ!</p>
+                        <p Style="font-weight: bold;text-align: center;">MAY THE FORCE BE WITH YOU!</p>
                     </div>
                 ) : (
                     <div id="contentModal">
-                        <Ranking ranking={this.state.rankingList}/>
+                        <Ranking ranking={rankingList} />
                     </div>
                 )}
                 </Dialog>
@@ -125,10 +115,10 @@ export default class AppView extends Component {
 
     handleOpenModalInstructions = () => {
         this.setState({
-            titleModal: 'Como jogar',
+            titleModal: 'How to play',
             ranking: false,
             openModalInstructions: true,
-            labelAction: 'JOGAR' ,
+            labelAction: 'START' ,
         });
     };
     

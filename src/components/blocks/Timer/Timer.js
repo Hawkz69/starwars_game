@@ -86,7 +86,7 @@ export default class Timer extends Component {
                     style={ stylesModal.dialogRoot }
                 >
                     <div id="contentModal" Style="text-align: center;">
-                        <p Style="font-size: 32px; font-family:Marker Felt">Você fez {localStorage.getItem('points')} pontos!</p>
+                        <p className="title_points_total">Você fez {localStorage.getItem('points')} pontos!</p>
 
                         <p>Digite seu nome e email e entre para o nosso ranking:</p>
                         <div id="inputsSendEmail" className="inputs_send_email_container">
@@ -125,11 +125,13 @@ export default class Timer extends Component {
         );
     }
 
+    /* Encerra o jogo e redireciona para HOME */ 
     exitGame = () => {
         this.handleCloseModalPoints();
         this.props.exitGame(true);
     }
 
+    /* Inicia jogo zerando cronometro e limpando storage */ 
     restartGame = () => {
         localStorage.removeItem('replys');
         this.handleCloseModalPoints();
@@ -173,6 +175,7 @@ export default class Timer extends Component {
             return true;
     }
 
+    /* Envia as informações do usuário para o ranking */ 
     sendRanking = () => {
         const { name, email } = this.state;
         if(this.validFields(name, email)){
@@ -196,6 +199,7 @@ export default class Timer extends Component {
         }
     }
 
+    /* Insere o usuário no ranking (push no obj) */ 
     pushRankingItem = (ranking: String) => {
         let ranking_json = JSON.parse(ranking);
         ranking_json.push({
@@ -206,6 +210,7 @@ export default class Timer extends Component {
         localStorage.setItem('ranking', [JSON.stringify(ranking_json)])
     }
 
+    /* Inicia decremento do cronometro */ 
     startTime = () => {
         const { minutes, seconds } = this.state;
         if( minutes >= 0 ){

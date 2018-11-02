@@ -45,6 +45,10 @@
       margin-top: 10%;
       margin-left: 15%; } }
 
+.actions_card {
+  display: flex;
+  justify-content: center; }
+
 .formName {
   width: 100%;
   display: flex;

@@ -1,3 +1,4 @@
+@import "../../../assets/scss/variables/variables_.scss";
 @keyframes AnimationTimer {
     to {
         width: 25%; 
@@ -28,11 +29,16 @@
     animation-duration: 120s;
 }
 
+.title_points_total {
+    font-size: 32px;
+    font-family: $fontPrimary;
+}
+
 .label_timer {
     text-align: center;
     width: 100%;
     font-size: 32px;
-    font-family: Marker Felt;
+    font-family: $fontPrimary;
     z-index: 9;
 
     @media only screen and (min-device-width : 320px) and (max-device-width : 568px) {

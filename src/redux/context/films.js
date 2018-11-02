@@ -20,7 +20,6 @@ export const getFilms = () => (
             header: {'Accept': 'application/json', 'Content-Type': 'application/json'}
         } , true).then
             (res => {
-                console.log(res);
                 if(res.status === 200){
                     dispatch({
                         type: GET_FILMS_SUCCESS,
@@ -38,6 +37,7 @@ export const getFilms = () => (
     }
 );
 
+/* Coloca no state do redux as informações organizadas */ 
 export const saveFilms = (films: String) => (
     (dispatch: Dispatch) => {
         dispatch({
@@ -70,7 +70,6 @@ export default function filmsReducer (state, action): ContextState {
             .setIn(['films', 'isLoading'], false)
             .setIn(['films', 'errors'], null)
             .setIn(['films', 'data',], action.data)
-            // .setIn(['films', ], action.data.results);
   
         case GET_FILMS_FAILED:
             return state

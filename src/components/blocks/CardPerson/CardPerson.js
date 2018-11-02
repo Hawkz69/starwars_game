@@ -9,35 +9,9 @@ import IconButton from 'material-ui/IconButton';
 import CheckCircle from 'material-ui/svg-icons/action/check-circle';
 import Help from 'material-ui/svg-icons/action/help';
 import SpeakerNotes from 'material-ui/svg-icons/action/speaker-notes';
-import { placeholders, Colors } from '../../../assets/pallet/variables_'
+import { placeholders, Colors, stylesModal } from '../../../assets/pallet/variables_'
 // Style
 import './CardPerson.css';
-
-const styles = {
-    dialogRoot: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      paddingTop: 0
-    },
-    dialogContent: {
-      position: "relative",
-      width: "70vw",
-      transform: "",
-    },
-    dialogBody: {
-      paddingBottom: 0
-    },
-    smallIcon: {
-        width: 30,
-        height: 30,
-    },
-    small: {
-        width: 48,
-        height: 48,
-        padding: 12,
-    },
-};
 
 export default class CardPerson extends Component {
     constructor(props) {
@@ -90,7 +64,13 @@ export default class CardPerson extends Component {
             />,
         ];
         const img  = urlImgs + this.props.person.name + '.png';
-        const { isShowInput, isDisableInput, colorBtnOk } = this.state;
+        const { 
+            isShowInput, 
+            isDisableInput, 
+            colorBtnOk, 
+            titleModal,
+            openModalPersonDescription
+        } = this.state;
 
         return (
             <div className="container_card">
@@ -102,18 +82,18 @@ export default class CardPerson extends Component {
                             onError={(e) => e.target.src = placeholders.person}
                             
                         />                    
-                        <div id="actionsCard" Style="display: flex; justify-content: center;">
+                        <div id="actionsCard" className="actions_card">
                             <IconButton
-                                iconStyle={styles.smallIcon}
-                                style={styles.small}
+                                iconStyle={stylesModal.smallIcon}
+                                style={stylesModal.small}
                                 onClick={this.showInput}
                             >
                                 <Help color="#FC4081"/>
                             </IconButton>
 
                             <IconButton
-                                iconStyle={styles.smallIcon}
-                                style={styles.small}
+                                iconStyle={stylesModal.smallIcon}
+                                style={stylesModal.small}
                                 onClick={this.handleOpenModalPersonDescription}
                             >
                                 <SpeakerNotes color="#FF7F00"/>
@@ -123,7 +103,7 @@ export default class CardPerson extends Component {
                             style={{display: isShowInput}}
                         >
                             <TextField
-                                hintText="Nome"
+                                hintText="Name"
                                 id="name"
                                 value={this.state.name}
                                 underlineFocusStyle={{borderColor: Colors.secondary}}
@@ -138,8 +118,8 @@ export default class CardPerson extends Component {
                                 }}
                             />
                             <IconButton
-                                iconStyle={styles.smallIcon}
-                                style={styles.small}
+                                iconStyle={stylesModal.smallIcon}
+                                style={stylesModal.small}
                                 disabled={isDisableInput}
                                 onClick={this.saveNamePerson}
                             >
@@ -150,16 +130,16 @@ export default class CardPerson extends Component {
                 </Animated>
                 
                 <Dialog
-                    title={this.state.titleModal}
+                    title={titleModal}
                     actions={actions}
                     modal={false}
-                    open={this.state.openModalPersonDescription}
+                    open={openModalPersonDescription}
                     onRequestClose={this.handleCloseModalPersonDescription}
                     autoScrollBodyContent={true}
                     repositionOnUpdate={ false }
-                    contentStyle={ styles.dialogContent }
-                    bodyStyle={ styles.dialogBody }
-                    style={ styles.dialogRoot }
+                    contentStyle={ stylesModal.dialogContent }
+                    bodyStyle={ stylesModal.dialogBody }
+                    style={ stylesModal.dialogRoot }
                 >
                     <div id="contentModal">
                         {this.props.person.birth_year != 'unknown' ? (
@@ -230,6 +210,7 @@ export default class CardPerson extends Component {
         }
     }
 
+    /* INCREMENTA PONTUAÇÃO COM BASE NO LOCAL STORAGE */
     incrementPoint = (value: String) => {
         let actualPoints = parseInt(localStorage.getItem('points'));
         if(actualPoints == null){
@@ -239,6 +220,7 @@ export default class CardPerson extends Component {
         }
     }
 
+    /* SALVA RESPOSTAS NO LOCALSTORAGE (MONTA OBJETO) */
     saveReply = () => {
         const { name, nameApi } = this.state;
         let replys = localStorage.getItem('replys');
@@ -258,10 +240,11 @@ export default class CardPerson extends Component {
         }
     }
 
+    /* COMPARA REPOSTA DIGITADA COM RESPOSTA CORRETA E VERIFICA SE USUÁRIO
+        ABRIU INFORMAÇÕES - MANDA NOTA */
     saveNamePerson = () => {
         const { name, nameApi } = this.state;
         this.setState({
-            colorBtnOk: 'gray',
             isDisableInput: true,
         })
         const _name = name.toString().toUpperCase();
@@ -281,8 +264,13 @@ export default class CardPerson extends Component {
     }
 
     handleOpenModalPersonDescription = () => {
+        /* CARREGA INFORMAÇÃO DE FILMES DO PERSONAGEM COM BASE NO STATE DO REDUX */
         this.getMoreInformationPerson(this.props.person.films);
-        this.setState({openModalPersonDescription: true, pointuationCard: 5, titleModal: 'Sobre o personagem'});
+
+        this.setState({
+            openModalPersonDescription: true, 
+            pointuationCard: 5, 
+            titleModal: 'About the character'});
     };
     
     handleCloseModalPersonDescription = () => {
