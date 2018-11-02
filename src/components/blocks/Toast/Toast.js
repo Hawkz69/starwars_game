@@ -1,6 +1,5 @@
 import Snackbar from 'material-ui/Snackbar';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types'
 // Style
 import './Toast.css';
 

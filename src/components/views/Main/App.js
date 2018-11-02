@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 // Material-UI
 import RaisedButton from 'material-ui/RaisedButton';
+import {List, ListItem} from 'material-ui/List';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+import { Ranking } from '../../blocks'
 
 // Style
 import './App.css';
@@ -28,27 +31,31 @@ export default class AppView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            openModalInstructions: false
+            openModalInstructions: false,
+            ranking: false,
+            rankingList: null,
+            titleModal: ''
         };
     }
 
     render() {
-        const actions = [
+        let actions = [
             <FlatButton
                 label="Cancelar"
                 onClick={this.handleCloseModalInstructions}
             />,
             <FlatButton
-                label="INICIAR"
+                label={this.state.labelAction}
                 secondary={true}
                 keyboardFocused={true}
-                onClick={this.redirectGameStart}
+                onClick={this.redirectModal}
             />,
         ];
 
         return (
             <div className="container_app">
                 <div className="box_">
+                    <div><p onClick={this.renderRanking} Style="margin: 10px; font-family: Marker Felt; cursor: pointer">Ranking</p></div>
                     <img src={require('../../../assets/img/nave_leah.png')} className="leah"/>
                     <img src={require('../../../assets/img/img_home.png')} className="img_home"/>
                     <div id="gameStart" className="gameStart">
@@ -56,7 +63,7 @@ export default class AppView extends Component {
                     </div>        
                 </div>
                 <Dialog
-                    title="Como jogar"
+                    title={this.state.titleModal}
                     actions={actions}
                     modal={false}
                     open={this.state.openModalInstructions}
@@ -67,6 +74,7 @@ export default class AppView extends Component {
                     bodyStyle={ styles.dialogBody }
                     style={ styles.dialogRoot }
                 >
+                {!this.state.ranking ? (
                     <div id="contentModal">
                         <p>Com esse quiz você terá oportunidade de identificar os principais personagens de Star-
                         wars, marcar pontos e se tornar um expert nesta série de filmes maravilhosa!</p>
@@ -75,6 +83,11 @@ export default class AppView extends Component {
                         <img className="img_tutorial" src={require('../../../assets/img/tutorial.png')}/>
                         <p Style="font-weight: bold;text-align: center;">QUE A FORÇA ESTEJA COM VOCÊ!</p>
                     </div>
+                ) : (
+                    <div id="contentModal">
+                        <Ranking ranking={this.state.rankingList}/>
+                    </div>
+                )}
                 </Dialog>
             </div>
         );
@@ -84,8 +97,34 @@ export default class AppView extends Component {
        this.props.redirectGameStart();
     };
 
+    renderRanking = () => {
+        this.setState({ranking: true, openModalInstructions: true})
+        let ranking = localStorage.getItem('ranking');
+        if(ranking !== null){
+            ranking = JSON.parse(ranking)
+            ranking = _.orderBy(ranking, 'points', 'desc');
+            this.setState({
+                titleModal: 'Ranking',
+                rankingList: ranking,
+                labelAction: 'OK'});
+        } 
+    }
+
+    redirectModal = () => {
+        if(!this.state.ranking)
+            this.redirectGameStart();
+        else 
+            this.handleCloseModalInstructions();
+        
+    }
+
     handleOpenModalInstructions = () => {
-        this.setState({openModalInstructions: true});
+        this.setState({
+            titleModal: 'Como jogar',
+            ranking: false,
+            openModalInstructions: true,
+            labelAction: 'JOGAR' ,
+        });
     };
     
     handleCloseModalInstructions = () => {

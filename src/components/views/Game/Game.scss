@@ -7,6 +7,39 @@
     position: absolute;
 }
 
+.header {
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    display:flex;
+    z-index:9;
+}
+
+.div_pagination {
+    width: 100%;
+    display: flex;
+    height: 100px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.div_loader {
+    width: 100%;
+    display: flex;
+    height: 100px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.title_header {
+    width: 75%;
+    height: 100%;
+    background-color: white;
+    box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
+}
+
 .container_timer {
     box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
     width: 25%;
@@ -18,41 +51,41 @@
 }
 
 .img_logo {
-    margin: 1%;
+    margin: 15px;
     width: 25%;
     
     @media only screen and (min-device-width : 320px) and (max-device-width : 568px) {
-        margin: 5%;
+        margin: 20px;
         width: 60%;
     }
 
     // Iphone 6 portrait & landscape
     @media only screen and (min-device-width : 375px) and (max-device-width : 667px) {
-        margin: 5%;
+        margin: 20px;
         width: 60%;
     }
 
     //IPAD 768
     @media only screen and (min-device-width : 736px) and (max-device-width : 768px) {
-        margin: 5%;
+        margin: 20px;
         width: 40%;
     }
 
     //Ipad PRO
     @media only screen and (min-device-width : 770px) and (max-device-width : 1024px) {
-        margin: 5%;
-        width: 40%;
+        margin: 20px;
+        width: 20%;
     }
 
     // Iphone 6 plus portrait & landscape
     @media only screen and (min-device-width : 414px) and (max-device-width : 736px) {
-        margin: 5%;
+        margin: 20px;
         width: 60%;
     }
 
     // Galaxy S5 +
     @media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3){
-        margin: 5%;
+        margin: 20px;
         width: 60%;
     }
 }

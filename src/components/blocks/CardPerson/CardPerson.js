@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 // Material-UI
-import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
 import { Animated } from "react-animated-css";
 import IconButton from 'material-ui/IconButton';
-import ActionHome from 'material-ui/svg-icons/action/home';
 import CheckCircle from 'material-ui/svg-icons/action/check-circle';
 import Help from 'material-ui/svg-icons/action/help';
 import SpeakerNotes from 'material-ui/svg-icons/action/speaker-notes';
+import { placeholders, Colors } from '../../../assets/pallet/variables_'
 // Style
 import './CardPerson.css';
 
@@ -44,34 +43,55 @@ export default class CardPerson extends Component {
         super(props);
         this.state = {
             name: '',
+            nameApi: '',
             isShowInput: 'none',
             isDisableInput: false,
-            colorBtnOk: 'green'
+            colorBtnOk: 'green',
+            pointuationCard: 0,
+            titleModal: ''
         };
     }
 
+    componentDidMount = () => {
+        if(this.props !== {}) {
+            this.setState({nameApi: this.props.person.name})
+        }
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        if(nextProps.person !== undefined){
+            this.setState({nameApi: nextProps.person.name})
+        }
+    }
+
     render() {
+        const urlImgs = 'https://s3.amazonaws.com/starquiz/persons/'
         const actions = [
             <FlatButton
                 label="OK"
                 secondary={true}
                 keyboardFocused={true}
-                onClick={this.handleCloseModalInstructions}
+                onClick={this.handleCloseModalPersonDescription}
             />,
         ];
-
+        const img  = urlImgs + this.props.person.name + '.png';
         const { isShowInput, isDisableInput, colorBtnOk } = this.state;
 
         return (
             <div className="container_card">
-                <Animated animationIn="zoomIn" isVisible={true}>
+                <Animated animationIn="zoomIn" animationOut="pulse" isVisible={true}>
                     <div className="box">
-                        <img className="person" src={require('../../../assets/img/Darth_Vader.png')}/>
+                        <img 
+                            className="person"
+                            src={img}
+                            onError={(e) => e.target.src = placeholders.person}
+                            
+                        />                    
                         <div id="actionsCard" Style="display: flex; justify-content: center;">
                             <IconButton
                                 iconStyle={styles.smallIcon}
                                 style={styles.small}
-                                onClick={() => this.setState({isShowInput: 'flex'})}
+                                onClick={this.showInput}
                             >
                                 <Help color="#FC4081"/>
                             </IconButton>
@@ -79,24 +99,25 @@ export default class CardPerson extends Component {
                             <IconButton
                                 iconStyle={styles.smallIcon}
                                 style={styles.small}
-                                onClick={this.handleOpenModalInstructions}
+                                onClick={this.handleOpenModalPersonDescription}
                             >
                                 <SpeakerNotes color="#FF7F00"/>
                             </IconButton> 
                         </div>
-                        <div id="form" Style="width: 100%;
-                            display: flex;
-                            margin-top: -5px;
-                            height: 40px;
-                            /* background-color: rebeccapurple; */
-                            border-radius: 0px 0px 10px 10px;"
+                        <div id="form" className="formName"
                             style={{display: isShowInput}}
                         >
                             <TextField
                                 hintText="Nome"
+                                id="name"
+                                value={this.state.name}
+                                underlineFocusStyle={{borderColor: Colors.secondary}}
+                                onChange={this.onChange}
                                 disabled={isDisableInput}
+                                ref={(input) => { this.name = input; }}
+                                autoFocus
                                 style={{
-                                    width: '80%',
+                                    width: '86%',
                                     marginTop: -10,
                                     marginLeft: 5
                                 }}
@@ -113,11 +134,11 @@ export default class CardPerson extends Component {
                 </Animated>
                 
                 <Dialog
-                    title="Sobre o personagem"
+                    title={this.state.titleModal}
                     actions={actions}
                     modal={false}
-                    open={this.state.openModalInstructions}
-                    onRequestClose={this.handleCloseModalInstructions}
+                    open={this.state.openModalPersonDescription}
+                    onRequestClose={this.handleCloseModalPersonDescription}
                     autoScrollBodyContent={true}
                     repositionOnUpdate={ false }
                     contentStyle={ styles.dialogContent }
@@ -125,31 +146,75 @@ export default class CardPerson extends Component {
                     style={ styles.dialogRoot }
                 >
                     <div id="contentModal">
-                        <p>Com esse quiz você terá oportunidade de identificar os principais personagens de Star-
-                        wars, marcar pontos e se tornar um expert nesta série de filmes maravilhosa!</p>
+                        {this.props.person.birth_year != 'unknown' ? (
+                            <p>Birth Year: {this.props.person.birth_year}</p>
+                        ) : null}
+                    
+                        {this.props.person.eye_color != 'unknown' ? (
+                            <p>Eye Color: {this.props.person.eye_color}</p>
+                        ) : null}
 
-                        <p>Você terá 2 minutos para digitar os nomes dos personagens, exebidos no card, como na imagem abaixo:</p>
-                        <img className="img_tutorial" src={require('../../../assets/img/tutorial.png')}/>
-                        <p Style="font-weight: bold;text-align: center;">QUE A FORÇA ESTEJA COM VOCÊ!</p>
+                        {this.props.person.gender != 'unknown' ? (
+                            <p>Gender: {this.props.person.gender}</p>
+                        ) : null}
+
+                        {this.props.person.hair_color != 'unknown' ? (
+                            <p>Hair Color: {this.props.person.hair_color}</p>
+                        ) : null}
+
+                        {this.props.person.height != 'unknown' ? (
+                            <p>Height: {this.props.person.height}</p>
+                        ) : null}
+
+                        {this.props.person.mass != 'unknown' ? (
+                            <p>Mass: {this.props.person.mass}</p>
+                        ) : null}
+
                     </div>
                 </Dialog>
             </div>
         );
     }
 
+    showInput = () =>{
+        this.setState({isShowInput: 'flex'})
+    }
+
+    incrementPoint = (value) => {
+        let actualPoints = parseInt(localStorage.getItem('points'));
+        if(actualPoints == null){
+            localStorage.setItem('points', value);
+        } else {
+            localStorage.setItem('points', (actualPoints + value));
+        }
+    }
+
     saveNamePerson = () => {
+        const { name, nameApi } = this.state;
         this.setState({
             colorBtnOk: 'gray',
             isDisableInput: true,
         })
+        const _name = name.toString().toUpperCase();
+        const _nameApi = nameApi.toString().toUpperCase();
+        if(_name == _nameApi){
+            if(this.state.pointuationCard == 5){
+                this.incrementPoint(5);
+            } else {
+                this.incrementPoint(10);
+            }  
+        };
     }
 
+    onChange = (event) => {
+        this.setState({[event.target.id] : event.target.value})  
+    }
 
-    handleOpenModalInstructions = () => {
-        this.setState({openModalInstructions: true});
+    handleOpenModalPersonDescription = () => {
+        this.setState({openModalPersonDescription: true, pointuationCard: 5, titleModal: 'Sobre o personagem'});
     };
     
-    handleCloseModalInstructions = () => {
-        this.setState({openModalInstructions: false});
+    handleCloseModalPersonDescription = () => {
+        this.setState({openModalPersonDescription: false});
     };
 }

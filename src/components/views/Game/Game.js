@@ -1,42 +1,38 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 // Material-UI
-import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
-import { CardPerson, Timer } from "../../blocks";
-import placeholders from '../../../assets/pallet/variables_'
+import Spinner from 'react-spinkit';
+import { stylesModal } from '../../../assets/pallet/variables_';
+import { CardPerson, Timer, Toast } from "../../blocks";
 // Style
 import './Game.css';
-
-
-let timer = null;
-
-const styles = {
-    dialogRoot: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      paddingTop: 0
-    },
-    dialogContent: {
-      position: "relative",
-      width: "70vw",
-      transform: "",
-    },
-    dialogBody: {
-      paddingBottom: 0
-    }
-  };
 
 export default class GameView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            openModalInstructions: false
+            openModalInstructions: false,
+            persons: {
+                '0': [],
+            },
+            page: 0,
+            seconds: 3,
+            minutes: 0,
+            starTime: true
         };
+        localStorage.setItem('points', 0);
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        if(nextProps.persons !== undefined && nextProps.persons.length > 0){
+            this.setState({persons: nextProps.persons})
+        }
     }
 
     render() {
+        const { seconds, minutes, starTime } = this.state
         const actions = [
             <FlatButton
                 label="Cancelar"
@@ -52,44 +48,55 @@ export default class GameView extends Component {
 
         return (
             <div className="content_game">
-                <div id="header" Style="width: 100%;
-                                        height: 10%;
-                                        position: fixed;
-                                        display:flex;
-                                        z-index:9">
-
-                    <div id="title" Style="width: 75%;
-                                        height: 100%;
-                                        background-color: white;
-                                        box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
-                                        ">
+                <div id="header" className="header">
+                    <div id="title" className="title_header">
                         <img className="img_logo" src={require('../../../assets/img/logo.png')} />
-
                     </div>
                     <div id="containerTimer" className="container_timer">
-                        <Timer minutes="2" seconds="00" />
+                        <Timer 
+                            minutes={minutes}
+                            seconds={seconds}
+                            restartGame={this.handleRestartGame}
+                            starTime={starTime}
+                            exitGame={this.onExitGame}
+                        />
                     </div>
                 </div>
                 <div id="boxes" className="container_boxes">
-                    <CardPerson />
-                    <CardPerson />
-                    <CardPerson />
-                    <CardPerson />
-                    <CardPerson />
-                    <CardPerson />
-                    <CardPerson />
-                    <CardPerson />
+                {
+                    this.state.persons[this.state.page].map((item) => {
+                        return (
+                            <CardPerson key={item.name} person={item}/>
+                        )
+                    })
+                }
                 </div>
 
-                <div id="pagination" Style="width: 100%;
-                                            display: flex;
-                                            height: 100px;
-                                            align-items: center;
-                                            text-align: center;
-                                            justify-content: center;">
-                    <h4 Style="margin: 20px">Anterior</h4>
-                    <h4 Style="margin: 20px">Próxima</h4>
-                </div>
+                {this.state.persons.length < 9 ? (
+                    <div id="loader" className="div_loader">
+                        <Spinner name="three-bounce" />
+                    </div>
+                ) : (
+                    <div id="pagination" className="div_pagination">
+                        {this.state.page > 0 && (
+                            <FlatButton
+                                label="< Anterior"
+                                Style="margin: 20px"
+                                onClick={() => this.setState({page: this.state.page - 1, starTime: false})}
+                                secondary={true}
+                            />
+                        )}
+                    
+                        {this.state.persons[this.state.page].length >= 10 && (
+                            <FlatButton
+                                label="Próxima >"
+                                Style="margin: 20px"
+                                onClick={() => this.setState({page: this.state.page + 1, starTime: false})}
+                                secondary={true}
+                            />
+                        )}
+                    </div>
+                )}
 
                 
                 <Dialog
@@ -100,9 +107,9 @@ export default class GameView extends Component {
                     onRequestClose={this.handleCloseModalInstructions}
                     autoScrollBodyContent={true}
                     repositionOnUpdate={ false }
-                    contentStyle={ styles.dialogContent }
-                    bodyStyle={ styles.dialogBody }
-                    style={ styles.dialogRoot }
+                    contentStyle={ stylesModal.dialogContent }
+                    bodyStyle={ stylesModal.dialogBody }
+                    style={ stylesModal.dialogRoot }
                 >
                     <div id="contentModal">
                         <p>Com esse quiz você terá oportunidade de identificar os principais personagens de Star-
@@ -117,6 +124,22 @@ export default class GameView extends Component {
         );
     }
 
+    onExitGame = (exit: Bollean) => {
+        if(exit)
+            this.props.onExitGame(exit)
+    }
+
+    handleRestartGame = (newGame) => {
+        if(newGame){
+            localStorage.setItem('points', 0);
+            this.setState({
+                seconds: 5,
+                minutes: 0,
+                page: 0,
+                starTime: true
+            })
+        }
+    }
 
     handleOpenModalInstructions = () => {
         this.setState({openModalInstructions: true});
