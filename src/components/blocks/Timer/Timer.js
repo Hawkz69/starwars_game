@@ -27,17 +27,17 @@ export default class Timer extends Component {
             timerToast: 0,
             errorEmail: '',
             errorName: '',
-            classNameAnimation: 'div_animation_timer'
+            classNameAnimation: 'div_animation_timer',
+            starTime: false
         };
     }
 
-
     componentWillReceiveProps = (nextProps) => {
-        console.log(nextProps)
-        if(nextProps.starTime){
+        if(nextProps.starTime && !this.state.starTime){
             this.setState({
                 seconds: nextProps.seconds,
                 minutes: nextProps.minutes,
+                starTime: true
             })
             timer = setInterval(function(){this.startTime() }.bind(this), 1000);
         }
@@ -93,7 +93,7 @@ export default class Timer extends Component {
                             <TextField
                                     hintText="Nome"
                                     id="name"
-                                    onBlur={() => this.validFields(name, null)}
+                                    onBlur={() => this.validFields(name, email)}
                                     underlineFocusStyle={{borderColor: Colors.secondary}}
                                     value={this.state.name}
                                     errorText={errorName}
@@ -105,9 +105,10 @@ export default class Timer extends Component {
                                 />
                                 <TextField
                                     hintText="Email"
-                                    onBlur={() => this.validFields(null, email)}
-                                    underlineFocusStyle={{borderColor: Colors.secondary}}
                                     id="email"
+                                    onChange={this.onChange}
+                                    onBlur={() => this.validFields(name, email)}
+                                    underlineFocusStyle={{borderColor: Colors.secondary}}
                                     value={this.state.email}
                                     errorText={errorEmail}
                                     disabled={isDesabled}
@@ -130,10 +131,12 @@ export default class Timer extends Component {
     }
 
     restartGame = () => {
+        localStorage.removeItem('replys');
         this.handleCloseModalPoints();
         this.props.restartGame(true);
         this.setState({
-            classNameAnimation: 'div_animation_timer'
+            classNameAnimation: 'div_animation_timer',
+            openToast: false
         })
     }
 
@@ -142,39 +145,32 @@ export default class Timer extends Component {
         if(regex.test(email))
             return true
     }
+    
 
     validFields = (name, email) => {
-        if(name === '' || email === ''){
-            console.log("entrou")
-            if(email === ''){
-                this.setState({
-                    errorEmail: 'Campo Email é obrigatório'
-                })
-            } else {
-                if(!this.validEmail(email)){
-                    this.setState({
-                        errorEmail: 'Campo Email é obrigatório'
-                    })
-                } else {
-                    this.setState({
-                        errorEmail: ''
-                    })
-                }
-            }
-
-            if(name === ''){
-                this.setState({
-                    errorName: 'Campo Email é obrigatório'
-                }) 
-            } else {
-                this.setState({
-                    errorName: ''
-                }) 
-            }
-            return false;
+        let erros = false;
+    
+        if(email === ''){
+            this.setState({ errorEmail: 'Campo Email é obrigatório' })
+            erros = true;
         } else {
-            return true;
+            if(!this.validEmail(email)){
+                this.setState({ errorEmail: 'Email inválido' })
+                erros = true;
+            } else {
+                this.setState({ errorEmail: '' })
+            }
+        } 
+
+        if(name === ''){
+            this.setState({ errorName: 'Campo Nome é obrigatório' }) 
+            erros = true;
+        } else {
+            this.setState({ errorName: '' }) 
         }
+
+        if(!erros)
+            return true;
     }
 
     sendRanking = () => {
@@ -211,10 +207,10 @@ export default class Timer extends Component {
     }
 
     startTime = () => {
-        const {minutes, seconds } = this.state;
-        if(minutes >= 0){
-            if(seconds > 0) {
-                if(seconds > 10)
+        const { minutes, seconds } = this.state;
+        if( minutes >= 0 ){
+            if( seconds > 0 ) {
+                if( seconds > 10 )
                     this.setState({seconds: parseFloat(seconds-1)})
                 else
                     this.setState({seconds: ('0') + parseFloat(seconds-1)})
@@ -230,7 +226,8 @@ export default class Timer extends Component {
                         seconds: '00',
                         minutes: '0',
                         openModalEnd: true,
-                        classNameAnimation: null
+                        classNameAnimation: null,
+                        starTime: false
                     })
                 }      
             }
@@ -240,12 +237,13 @@ export default class Timer extends Component {
                 seconds: '00',
                 minutes: '0',
                 openModalEnd: true,
-                classNameAnimation: null
+                classNameAnimation: null,
+                starTime: false
             })
         }
     }
 
-    onChange = (event) => {
+    onChange = (event: Any) => {
         this.setState({[event.target.id] : event.target.value})  
     }
 

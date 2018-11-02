@@ -18,11 +18,17 @@ export default class GameView extends Component {
                 '0': [],
             },
             page: 0,
-            seconds: 3,
+            seconds: 5,
             minutes: 0,
-            starTime: true
+            startTime: false,
+            restart: false,
         };
         localStorage.setItem('points', 0);
+        localStorage.removeItem('replys');
+    }
+
+    componentDidMount = () => {
+        this.setState({startTime: true})
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -32,7 +38,7 @@ export default class GameView extends Component {
     }
 
     render() {
-        const { seconds, minutes, starTime } = this.state
+        const { seconds, minutes, startTime } = this.state;
         const actions = [
             <FlatButton
                 label="Cancelar"
@@ -57,7 +63,7 @@ export default class GameView extends Component {
                             minutes={minutes}
                             seconds={seconds}
                             restartGame={this.handleRestartGame}
-                            starTime={starTime}
+                            starTime={startTime}
                             exitGame={this.onExitGame}
                         />
                     </div>
@@ -66,7 +72,7 @@ export default class GameView extends Component {
                 {
                     this.state.persons[this.state.page].map((item) => {
                         return (
-                            <CardPerson key={item.name} person={item}/>
+                            <CardPerson key={item.name} person={item} restart={this.state.restart}/>
                         )
                     })
                 }
@@ -96,9 +102,7 @@ export default class GameView extends Component {
                             />
                         )}
                     </div>
-                )}
-
-                
+                )}          
                 <Dialog
                     title="Como jogar"
                     actions={actions}
@@ -133,10 +137,11 @@ export default class GameView extends Component {
         if(newGame){
             localStorage.setItem('points', 0);
             this.setState({
-                seconds: 5,
-                minutes: 0,
+                seconds: 0,
+                minutes: 2,
                 page: 0,
-                starTime: true
+                starTime: true,
+                restart: true
             })
         }
     }

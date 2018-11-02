@@ -55,7 +55,7 @@ export default class AppView extends Component {
         return (
             <div className="container_app">
                 <div className="box_">
-                    <div><p onClick={this.renderRanking} Style="margin: 10px; font-family: Marker Felt; cursor: pointer">Ranking</p></div>
+                    <div><p onClick={this.renderRanking} Style="margin: 15px; font-family: Marker Felt; cursor: pointer; font-size: 24px;">Ranking</p></div>
                     <img src={require('../../../assets/img/nave_leah.png')} className="leah"/>
                     <img src={require('../../../assets/img/img_home.png')} className="img_home"/>
                     <div id="gameStart" className="gameStart">
@@ -107,7 +107,12 @@ export default class AppView extends Component {
                 titleModal: 'Ranking',
                 rankingList: ranking,
                 labelAction: 'OK'});
-        } 
+        } else {
+            this.setState({
+                titleModal: 'Ranking',
+                rankingList: ranking,
+                labelAction: 'OK'});
+        }
     }
 
     redirectModal = () => {

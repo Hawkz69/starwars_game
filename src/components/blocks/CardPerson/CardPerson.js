@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 // Material-UI
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
@@ -55,16 +56,25 @@ export default class CardPerson extends Component {
     componentDidMount = () => {
         if(this.props !== {}) {
             this.setState({nameApi: this.props.person.name})
+            this.getReplyStorage(this.props.person.name);
         }
+         
     }
 
     componentWillReceiveProps = (nextProps) => {
         if(nextProps.person !== undefined){
             this.setState({nameApi: nextProps.person.name})
         }
+        if(nextProps.restart){
+            this.setState({
+                isDisableInput: false,
+                isShowInput: 'none',
+                name: ''
+            }) 
+        }
     }
 
-    render() {
+    render() {    
         const urlImgs = 'https://s3.amazonaws.com/starquiz/persons/'
         const actions = [
             <FlatButton
@@ -125,6 +135,7 @@ export default class CardPerson extends Component {
                             <IconButton
                                 iconStyle={styles.smallIcon}
                                 style={styles.small}
+                                disabled={isDisableInput}
                                 onClick={this.saveNamePerson}
                             >
                                 <CheckCircle color={colorBtnOk}/>
@@ -180,12 +191,47 @@ export default class CardPerson extends Component {
         this.setState({isShowInput: 'flex'})
     }
 
+    getReplyStorage = (nameApi) => {
+        let temp = localStorage.getItem('replys');
+        if(temp !== null){
+            temp = JSON.parse(temp);
+            let reply = temp.find(function (reply) { return reply.originalName === nameApi; });
+            if(reply != undefined){
+                this.setState({
+                    name: reply.replyName,
+                    isShowInput: 'flex',
+                    isDisableInput: true
+
+                })
+            }
+        }
+    }
+
     incrementPoint = (value) => {
         let actualPoints = parseInt(localStorage.getItem('points'));
         if(actualPoints == null){
             localStorage.setItem('points', value);
         } else {
             localStorage.setItem('points', (actualPoints + value));
+        }
+    }
+
+    saveReply = () => {
+        const { name, nameApi } = this.state;
+        let replys = localStorage.getItem('replys');
+        if(replys !== null){
+            let replysJson = JSON.parse(replys);
+            replysJson.push({
+                replyName: name,
+                originalName: nameApi
+            })
+            localStorage.setItem('replys', [JSON.stringify(replysJson)]);
+        } else {
+            const reply = {
+                replyName: name,
+                originalName: nameApi
+            };
+            localStorage.setItem('replys', '[' + JSON.stringify(reply) + ']');
         }
     }
 
@@ -204,6 +250,7 @@ export default class CardPerson extends Component {
                 this.incrementPoint(10);
             }  
         };
+        this.saveReply();
     }
 
     onChange = (event) => {
