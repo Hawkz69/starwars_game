@@ -167,8 +167,13 @@ export default class CardPerson extends Component {
                         ) : null}
 
 
-                        <p> Films: { this.state.films }</p>
-
+                        <p> Films:</p> 
+                            { this.state.films.map((item) => {
+                                return (
+                                    <p>{item}</p>
+                                )
+                            })
+                        }
                     </div>
                 </Dialog>
             </div>
@@ -178,15 +183,13 @@ export default class CardPerson extends Component {
     getMoreInformationPerson = (films: Array) => {
         const { filmsApi } = this.state;
         let results = [];
-        // let reply = '';
-        for (let i = 0; i < films.length; i++){
-            let _film = films[i];
-            let reply = filmsApi.find(function (film) { return filmsApi.url == film[i] });
-            console.log(reply)
-            if(reply != undefined){
-                results.push(reply.title)
-            }
-        }
+
+        films.forEach (function (item) {
+            let reply = filmsApi.find(function (film) { return film.url == item });   
+                if(reply != undefined){
+                    results.push(reply.title)
+                }
+        });
         this.setState({films: results})      
     }
 
