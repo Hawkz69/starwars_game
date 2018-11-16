@@ -7,6 +7,9 @@ Projeto demonstração de um jogo com React + Redux + MaterialUI + Axios
 Para rodar o build já feito:
  - #### `npm install -g serve`
  - #### `serve -s build`
+ 
+ ##DEMO
+ http://mobinte.com/
 
 ##############
 
